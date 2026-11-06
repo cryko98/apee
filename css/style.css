@@ -147,6 +147,57 @@ mark { background: none; color: inherit; }
 .hero__act { justify-self: end; display: grid; gap: 14px; justify-items: end; }
 .hero__btns { display: flex; gap: 12px; flex-wrap: wrap; justify-content: flex-end; }
 
+/* the trailer: autoplays on mute, one tap brings the sound */
+.trailer {
+  position: relative; width: min(100%, 340px); margin: 0 0 30px; aspect-ratio: 16 / 9;
+  rotate: -2.5deg; border: 3px solid var(--ink); border-radius: 18px; background: var(--ink);
+  box-shadow: 10px 10px 0 var(--mint-3); cursor: pointer;
+  transition: translate .25s var(--ease), box-shadow .25s var(--ease);
+  -webkit-tap-highlight-color: transparent;
+}
+.trailer:hover { translate: -3px -4px; box-shadow: 13px 14px 0 var(--mint-3); }
+.trailer__box { position: absolute; inset: 0; overflow: hidden; border-radius: 15px; }
+.trailer__v { display: block; width: 100%; height: 100%; object-fit: cover; background: var(--ink); transition: filter .3s; }
+.trailer.is-paused .trailer__v { filter: brightness(.7); }
+.trailer__tag { /* label sticker straddling the top edge */
+  position: absolute; top: -13px; right: 14px; display: flex; align-items: center; gap: 7px;
+  padding: 7px 11px; border-radius: 999px; background: var(--ink); color: var(--mint); rotate: 2deg;
+  font: 700 10px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; pointer-events: none;
+  box-shadow: 0 3px 0 var(--mint-3);
+}
+.trailer__tag::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--mint); animation: pulse 1.6s infinite; }
+.trailer__big {
+  position: absolute; bottom: 10px; right: 10px; display: grid; place-items: center; width: 34px; height: 34px;
+  border: 0; border-radius: 50%; background: rgba(13,18,16,.78); color: var(--white); cursor: pointer;
+  backdrop-filter: blur(6px); transition: background .2s, color .2s;
+}
+.trailer__big svg { width: 16px; height: 16px; }
+.trailer__big:hover { background: var(--mint); color: var(--ink); }
+.trailer__sound { /* speech bubble, sits above the baked-in captions */
+  position: absolute; left: 12px; top: 12px; display: flex; align-items: center; gap: 10px;
+  padding: 9px 14px 9px 12px; border: 2.5px solid var(--ink); border-radius: 999px;
+  background: var(--white); color: var(--ink); font: 700 12px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase;
+  cursor: pointer; box-shadow: 0 4px 0 var(--mint-3); transform-origin: 20% 0;
+  animation: nudge 2.2s ease-in-out infinite; transition: background .2s, color .2s;
+}
+.trailer__sound::after { /* the tail, pointing down at the ape */
+  content: ""; position: absolute; bottom: -8px; left: 22px; width: 11px; height: 11px;
+  background: var(--white); border: 2.5px solid var(--ink); border-left: 0; border-top: 0; rotate: 45deg;
+  transition: background .2s;
+}
+.trailer.is-on .trailer__sound, .trailer.is-heard .trailer__sound { animation: none; }
+.trailer.is-on .trailer__sound { background: var(--ink); color: var(--mint); }
+.trailer.is-on .trailer__sound::after { background: var(--ink); }
+.eq { display: flex; align-items: flex-end; gap: 2px; width: 16px; height: 14px; }
+.eq i { flex: 1; height: 3px; border-radius: 2px; background: currentColor; }
+.trailer.is-on .eq i { animation: eq .9s ease-in-out infinite; }
+.trailer.is-on .eq i:nth-child(2) { animation-delay: -.3s; }
+.trailer.is-on .eq i:nth-child(3) { animation-delay: -.6s; }
+.trailer.is-on .eq i:nth-child(4) { animation-delay: -.15s; }
+.trailer__bar { position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: var(--mint); transform-origin: 0 50%; transform: scaleX(0); }
+@keyframes nudge { 0%, 100% { rotate: -2deg; } 50% { rotate: 2.5deg; } }
+@keyframes eq { 0%, 100% { height: 4px; } 50% { height: 14px; } }
+
 /* contract address pill */
 .ca {
   display: flex; align-items: center; gap: 14px;
@@ -381,6 +432,7 @@ mark { background: none; color: inherit; }
   .hero__sub { margin-inline: auto; }
   .hero__act { justify-self: auto; justify-items: center; margin-top: 26px; }
   .hero__btns { justify-content: center; }
+  .trailer { width: min(100%, 460px); margin: 0 auto 28px; rotate: -1.5deg; }
   .ticker span { font-size: 26px; }
   .receipts, .lore, .poster, .join { padding: 100px 0; }
   .sec-hd { margin-bottom: 40px; }

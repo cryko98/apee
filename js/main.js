@@ -73,6 +73,53 @@
     if (taps === 100) say("100 apes sent. <b>No thoughts. Just ape.</b>");
   });
 
+  /* the trailer: autoplays on mute; one tap brings the sound, from the first words */
+  const tr = $("[data-trailer]");
+  if (tr) {
+    const v = $("video", tr);
+    const btn = $("[data-sound]", tr);
+    const lab = $("[data-sound-label]", tr);
+    const bar = $("[data-progress]", tr);
+    const quiet = reduced || (navigator.connection && navigator.connection.saveData);
+    let heard = false;
+    const ui = () => {
+      const on = !v.muted;
+      tr.classList.toggle("is-on", on);
+      tr.classList.toggle("is-paused", v.paused);
+      btn.setAttribute("aria-pressed", on);
+      lab.textContent = on ? "sound on" : v.paused ? "play with sound" : heard ? "tap to replay with sound" : "on mute · tap for sound";
+    };
+    const soundOn = () => {
+      v.muted = false;
+      v.volume = 1;
+      v.currentTime = 0;
+      v.play().catch(() => {});
+      if (!heard) say("Sound on. <b>From the first words.</b>");
+      heard = true;
+      tr.classList.add("is-heard");
+      ui();
+    };
+    const soundOff = () => { v.muted = true; ui(); };
+    tr.addEventListener("click", (e) => {
+      if (e.target.closest("[data-big]")) {
+        if (v.muted) soundOn();
+        const fs = v.requestFullscreen || v.webkitRequestFullscreen || v.webkitEnterFullscreen;
+        if (fs) fs.call(v);
+        return;
+      }
+      v.muted || v.paused ? soundOn() : soundOff();
+    });
+    v.addEventListener("timeupdate", () => { bar.style.transform = "scaleX(" + v.currentTime / (v.duration || 30) + ")"; });
+    v.addEventListener("ended", () => { v.muted = true; v.currentTime = 0; v.play().catch(() => {}); ui(); });
+    ["play", "pause", "volumechange"].forEach((ev) => v.addEventListener(ev, ui));
+    if (quiet) { v.removeAttribute("autoplay"); v.pause(); }
+    new IntersectionObserver(([en]) => {
+      if (en.isIntersecting) { if (!quiet || !v.muted) v.play().catch(() => {}); }
+      else if (!v.paused) v.pause();
+    }, { threshold: 0.3 }).observe(tr);
+    ui();
+  }
+
   /* reveal on scroll */
   const io = new IntersectionObserver(
     (ents) => ents.forEach((en) => {

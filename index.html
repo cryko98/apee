@@ -38,6 +38,7 @@
     <symbol id="i-views" viewBox="0 0 24 24"><path fill="currentColor" d="M8.75 21V3h2v18h-2zM18 21V8.5h2V21h-2zM4 21l.004-10h2L6 21H4zm9.248 0v-7h2v7h-2z"/></symbol>
     <symbol id="i-copy" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M9 9h10v12H9zM5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></symbol>
     <symbol id="i-down" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M12 3v13m-6-6 6 6 6-6M4 21h16"/></symbol>
+    <symbol id="i-full" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></symbol>
   </svg>
 
   <header class="nav" id="top">
@@ -69,6 +70,18 @@
       <p class="hero__tap" aria-hidden="true">tap the ape <b data-taps>0</b></p>
 
       <div class="hero__copy">
+        <div class="trailer" data-trailer>
+          <div class="trailer__box">
+            <video class="trailer__v" src="assets/ape-promo-720.mp4" poster="assets/ape-promo-poster.jpg" autoplay muted playsinline preload="auto" aria-label="$APE — the trailer, 30 seconds"></video>
+            <i class="trailer__bar" data-progress aria-hidden="true"></i>
+          </div>
+          <span class="trailer__tag" aria-hidden="true">the trailer · 0:30</span>
+          <button class="trailer__sound" type="button" aria-pressed="false" data-sound>
+            <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+            <span data-sound-label>on mute · tap for sound</span>
+          </button>
+          <button class="trailer__big" type="button" aria-label="Watch fullscreen with sound" data-big><svg aria-hidden="true"><use href="#i-full"/></svg></button>
+        </div>
         <p class="kicker">the first words pump.fun ever posted</p>
         <p class="hero__line">ape into lowcaps.</p>
         <p class="hero__sub">He read it. He never recovered. Now he just says ape and sends it.</p>
