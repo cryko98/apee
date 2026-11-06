@@ -2,7 +2,7 @@
 (() => {
   const CONFIG = {
     X_URL: "https://x.com/apelowcaps",
-    CA: "", // paste the contract address here on launch day
+    CA: "5jqzgwyQMGjJyZPUHXbFCiQ7KmxdGK67ipJAowjHpump",
   };
 
   const $ = (s, el = document) => el.querySelector(s);
@@ -24,6 +24,7 @@
     $$("[data-ca] .ca__val").forEach((v) => {
       v.textContent = CONFIG.CA.slice(0, 6) + "…" + CONFIG.CA.slice(-6);
       v.title = CONFIG.CA;
+      v.classList.add("ca__val--addr");
     });
   }
   $$("[data-ca] .ca__btn").forEach((b) =>

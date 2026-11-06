@@ -207,6 +207,7 @@ mark { background: none; color: inherit; }
 }
 .ca__label { padding: 9px 12px; border-radius: 11px; background: var(--ink); color: var(--mint); font: 700 13px/1 var(--mono); letter-spacing: .1em; }
 .ca__val { display: flex; align-items: center; gap: 10px; min-width: 190px; font: 700 15px/1 var(--mono); text-transform: uppercase; letter-spacing: .08em; }
+.ca__val--addr { text-transform: none; letter-spacing: .02em; } /* base58 is case-sensitive */
 .ca__dot { width: 9px; height: 9px; border-radius: 50%; background: var(--mint-3); box-shadow: 0 0 0 0 var(--mint-3); animation: ping 1.8s infinite; }
 .ca__btn { display: grid; place-items: center; width: 42px; height: 42px; border: 0; border-radius: 11px; background: var(--mint); color: var(--ink); cursor: pointer; transition: background .2s; }
 .ca__btn:hover { background: var(--mint-2); }
